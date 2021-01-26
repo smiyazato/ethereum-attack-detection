@@ -99,14 +99,14 @@ func main(){
         for j, w := range hex1[v+1:] {
             if j > ignore {
                 if w == SSTORE {
-                    fmt.Print("SSTORE ")
+                    fmt.Print("WRITE ")
                     if hex1[j+v-1] == PUSH1 {
                         fmt.Println(hex1[j+v])
                     } else {
                         fmt.Println(firstpush)
                     }
                 } else if w == SLOAD {
-                    fmt.Print("SLOAD " )
+                    fmt.Print("READ " )
                     if hex1[j+v-1] == PUSH1 {
                         fmt.Println(hex1[j+v])
                     } else {
