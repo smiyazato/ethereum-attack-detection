@@ -1,0 +1,528 @@
+    /* "./myresearch/tod-victim.sol":58:588  contract TODVictim {... */
+  mstore(0x40, 0x80)
+    /* "./myresearch/tod-victim.sol":170:274  constructor() public {... */
+  callvalue
+    /* "--CODEGEN--":5:14   */
+  dup1
+    /* "--CODEGEN--":2:4   */
+  iszero
+  tag_1
+  jumpi
+    /* "--CODEGEN--":27:28   */
+  0x00
+    /* "--CODEGEN--":24:25   */
+  dup1
+    /* "--CODEGEN--":17:29   */
+  revert
+    /* "--CODEGEN--":2:4   */
+tag_1:
+    /* "./myresearch/tod-victim.sol":170:274  constructor() public {... */
+  pop
+    /* "./myresearch/tod-victim.sol":209:219  msg.sender */
+  caller
+    /* "./myresearch/tod-victim.sol":201:206  owner */
+  0x01
+  0x00
+    /* "./myresearch/tod-victim.sol":201:219  owner = msg.sender */
+  0x0100
+  exp
+  dup2
+  sload
+  dup2
+  0xffffffffffffffffffffffffffffffffffffffff
+  mul
+  not
+  and
+  swap1
+  dup4
+  0xffffffffffffffffffffffffffffffffffffffff
+  and
+  mul
+  or
+  swap1
+  sstore
+  pop
+    /* "./myresearch/tod-victim.sol":237:238  1 */
+  0x01
+    /* "./myresearch/tod-victim.sol":229:234  price */
+  0x02
+    /* "./myresearch/tod-victim.sol":229:238  price = 1 */
+  dup2
+  swap1
+  sstore
+  pop
+    /* "./myresearch/tod-victim.sol":264:267  100 */
+  0x64
+    /* "./myresearch/tod-victim.sol":248:261  stockQuantity */
+  0x00
+    /* "./myresearch/tod-victim.sol":248:267  stockQuantity = 100 */
+  dup2
+  swap1
+  sstore
+  pop
+    /* "./myresearch/tod-victim.sol":58:588  contract TODVictimBalance {... */
+  dataSize(sub_0)
+  dup1
+  dataOffset(sub_0)
+  0x00
+  codecopy
+  0x00
+  return
+stop
+
+sub_0: assembly {
+        /* "./myresearch/tod-victim.sol":58:588  contract TODVictimBalance {... */
+      mstore(0x40, 0x80)
+      jumpi(tag_1, lt(calldatasize, 0x04))
+      shr(0xe0, calldataload(0x00))
+      dup1
+      0x6f2640a0
+      eq
+      tag_2
+      jumpi
+      dup1
+      0x8d6cc56d
+      eq
+      tag_3
+      jumpi
+      dup1
+      0x8da5cb5b
+      eq
+      tag_4
+      jumpi
+      dup1
+      0xa035b1fe
+      eq
+      tag_5
+      jumpi
+      dup1
+      0xd96a094a
+      eq
+      tag_6
+      jumpi
+    tag_1:
+        /* "--CODEGEN--":12:13   */
+      0x00
+        /* "--CODEGEN--":9:10   */
+      dup1
+        /* "--CODEGEN--":2:14   */
+      revert
+        /* "./myresearch/tod-victim.sol":90:115  uint public stockQuantity */
+    tag_2:
+      callvalue
+        /* "--CODEGEN--":5:14   */
+      dup1
+        /* "--CODEGEN--":2:4   */
+      iszero
+      tag_7
+      jumpi
+        /* "--CODEGEN--":27:28   */
+      0x00
+        /* "--CODEGEN--":24:25   */
+      dup1
+        /* "--CODEGEN--":17:29   */
+      revert
+        /* "--CODEGEN--":2:4   */
+    tag_7:
+        /* "./myresearch/tod-victim.sol":90:115  uint public stockQuantity */
+      pop
+      tag_8
+      tag_9
+      jump	// in
+    tag_8:
+      mload(0x40)
+      dup1
+      dup3
+      dup2
+      mstore
+      0x20
+      add
+      swap2
+      pop
+      pop
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      return
+        /* "./myresearch/tod-victim.sol":279:351  function updatePrice(uint _price) public {... */
+    tag_3:
+      callvalue
+        /* "--CODEGEN--":5:14   */
+      dup1
+        /* "--CODEGEN--":2:4   */
+      iszero
+      tag_10
+      jumpi
+        /* "--CODEGEN--":27:28   */
+      0x00
+        /* "--CODEGEN--":24:25   */
+      dup1
+        /* "--CODEGEN--":17:29   */
+      revert
+        /* "--CODEGEN--":2:4   */
+    tag_10:
+        /* "./myresearch/tod-victim.sol":279:351  function updatePrice(uint _price) public {... */
+      pop
+      tag_11
+      0x04
+      dup1
+      calldatasize
+      sub
+        /* "--CODEGEN--":15:17   */
+      0x20
+        /* "--CODEGEN--":10:13   */
+      dup2
+        /* "--CODEGEN--":7:18   */
+      lt
+        /* "--CODEGEN--":4:6   */
+      iszero
+      tag_12
+      jumpi
+        /* "--CODEGEN--":31:32   */
+      0x00
+        /* "--CODEGEN--":28:29   */
+      dup1
+        /* "--CODEGEN--":21:33   */
+      revert
+        /* "--CODEGEN--":4:6   */
+    tag_12:
+        /* "./myresearch/tod-victim.sol":279:351  function updatePrice(uint _price) public {... */
+      dup2
+      add
+      swap1
+      dup1
+      dup1
+      calldataload
+      swap1
+      0x20
+      add
+      swap1
+      swap3
+      swap2
+      swap1
+      pop
+      pop
+      pop
+      tag_13
+      jump	// in
+    tag_11:
+      stop
+        /* "./myresearch/tod-victim.sol":121:141  address public owner */
+    tag_4:
+      callvalue
+        /* "--CODEGEN--":5:14   */
+      dup1
+        /* "--CODEGEN--":2:4   */
+      iszero
+      tag_14
+      jumpi
+        /* "--CODEGEN--":27:28   */
+      0x00
+        /* "--CODEGEN--":24:25   */
+      dup1
+        /* "--CODEGEN--":17:29   */
+      revert
+        /* "--CODEGEN--":2:4   */
+    tag_14:
+        /* "./myresearch/tod-victim.sol":121:141  address public owner */
+      pop
+      tag_15
+      tag_16
+      jump	// in
+    tag_15:
+      mload(0x40)
+      dup1
+      dup3
+      0xffffffffffffffffffffffffffffffffffffffff
+      and
+      0xffffffffffffffffffffffffffffffffffffffff
+      and
+      dup2
+      mstore
+      0x20
+      add
+      swap2
+      pop
+      pop
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      return
+        /* "./myresearch/tod-victim.sol":147:164  uint public price */
+    tag_5:
+      callvalue
+        /* "--CODEGEN--":5:14   */
+      dup1
+        /* "--CODEGEN--":2:4   */
+      iszero
+      tag_17
+      jumpi
+        /* "--CODEGEN--":27:28   */
+      0x00
+        /* "--CODEGEN--":24:25   */
+      dup1
+        /* "--CODEGEN--":17:29   */
+      revert
+        /* "--CODEGEN--":2:4   */
+    tag_17:
+        /* "./myresearch/tod-victim.sol":147:164  uint public price */
+      pop
+      tag_18
+      tag_19
+      jump	// in
+    tag_18:
+      mload(0x40)
+      dup1
+      dup3
+      dup2
+      mstore
+      0x20
+      add
+      swap2
+      pop
+      pop
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      return
+        /* "./myresearch/tod-victim.sol":356:586  function buy(uint _quantity) public payable {... */
+    tag_6:
+      tag_20
+      0x04
+      dup1
+      calldatasize
+      sub
+        /* "--CODEGEN--":15:17   */
+      0x20
+        /* "--CODEGEN--":10:13   */
+      dup2
+        /* "--CODEGEN--":7:18   */
+      lt
+        /* "--CODEGEN--":4:6   */
+      iszero
+      tag_21
+      jumpi
+        /* "--CODEGEN--":31:32   */
+      0x00
+        /* "--CODEGEN--":28:29   */
+      dup1
+        /* "--CODEGEN--":21:33   */
+      revert
+        /* "--CODEGEN--":4:6   */
+    tag_21:
+        /* "./myresearch/tod-victim.sol":356:586  function buy(uint _quantity) public payable {... */
+      dup2
+      add
+      swap1
+      dup1
+      dup1
+      calldataload
+      swap1
+      0x20
+      add
+      swap1
+      swap3
+      swap2
+      swap1
+      pop
+      pop
+      pop
+      tag_22
+      jump	// in
+    tag_20:
+      stop
+        /* "./myresearch/tod-victim.sol":90:115  uint public stockQuantity */
+    tag_9:
+      sload(0x00)
+      dup2
+      jump	// out
+        /* "./myresearch/tod-victim.sol":279:351  function updatePrice(uint _price) public {... */
+    tag_13:
+        /* "./myresearch/tod-victim.sol":338:344  _price */
+      dup1
+        /* "./myresearch/tod-victim.sol":330:335  price */
+      0x02
+        /* "./myresearch/tod-victim.sol":330:344  price = _price */
+      dup2
+      swap1
+      sstore
+      pop
+        /* "./myresearch/tod-victim.sol":279:351  function updatePrice(uint _price) public {... */
+      pop
+      jump	// out
+        /* "./myresearch/tod-victim.sol":121:141  address public owner */
+    tag_16:
+      0x01
+      0x00
+      swap1
+      sload
+      swap1
+      0x0100
+      exp
+      swap1
+      div
+      0xffffffffffffffffffffffffffffffffffffffff
+      and
+      dup2
+      jump	// out
+        /* "./myresearch/tod-victim.sol":147:164  uint public price */
+    tag_19:
+      sload(0x02)
+      dup2
+      jump	// out
+        /* "./myresearch/tod-victim.sol":356:586  function buy(uint _quantity) public payable {... */
+    tag_22:
+        /* "./myresearch/tod-victim.sol":443:448  price */
+      sload(0x02)
+        /* "./myresearch/tod-victim.sol":431:440  _quantity */
+      dup2
+        /* "./myresearch/tod-victim.sol":431:448  _quantity * price */
+      mul
+        /* "./myresearch/tod-victim.sol":418:427  msg.value */
+      callvalue
+        /* "./myresearch/tod-victim.sol":418:448  msg.value >= _quantity * price */
+      lt
+      iszero
+        /* "./myresearch/tod-victim.sol":418:478  msg.value >= _quantity * price && _quantity <= stockQuantity */
+      dup1
+      iszero
+      tag_25
+      jumpi
+      pop
+        /* "./myresearch/tod-victim.sol":465:478  stockQuantity */
+      sload(0x00)
+        /* "./myresearch/tod-victim.sol":452:461  _quantity */
+      dup2
+        /* "./myresearch/tod-victim.sol":452:478  _quantity <= stockQuantity */
+      gt
+      iszero
+        /* "./myresearch/tod-victim.sol":418:478  msg.value >= _quantity * price && _quantity <= stockQuantity */
+    tag_25:
+        /* "./myresearch/tod-victim.sol":410:483  require(msg.value >= _quantity * price && _quantity <= stockQuantity, "") */
+      tag_26
+      jumpi
+      mload(0x40)
+      0x08c379a000000000000000000000000000000000000000000000000000000000
+      dup2
+      mstore
+      0x04
+      add
+      dup1
+      dup1
+      0x20
+      add
+      dup3
+      dup2
+      sub
+      dup3
+      mstore
+      0x00
+      dup2
+      mstore
+      0x20
+      add
+      0x20
+      add
+      swap2
+      pop
+      pop
+      mload(0x40)
+      dup1
+      swap2
+      sub
+      swap1
+      revert
+    tag_26:
+        /* "./myresearch/tod-victim.sol":510:519  _quantity */
+      dup1
+        /* "./myresearch/tod-victim.sol":493:506  stockQuantity */
+      0x00
+      dup1
+        /* "./myresearch/tod-victim.sol":493:519  stockQuantity -= _quantity */
+      dup3
+      dup3
+      sload
+      sub
+      swap3
+      pop
+      pop
+      dup2
+      swap1
+      sstore
+      pop
+        /* "./myresearch/tod-victim.sol":529:539  msg.sender */
+      caller
+        /* "./myresearch/tod-victim.sol":529:548  msg.sender.transfer */
+      0xffffffffffffffffffffffffffffffffffffffff
+      and
+        /* "./myresearch/tod-victim.sol":529:579  msg.sender.transfer(msg.value - _quantity * price) */
+      0x08fc
+        /* "./myresearch/tod-victim.sol":573:578  price */
+      sload(0x02)
+        /* "./myresearch/tod-victim.sol":561:570  _quantity */
+      dup4
+        /* "./myresearch/tod-victim.sol":561:578  _quantity * price */
+      mul
+        /* "./myresearch/tod-victim.sol":549:558  msg.value */
+      callvalue
+        /* "./myresearch/tod-victim.sol":549:578  msg.value - _quantity * price */
+      sub
+        /* "./myresearch/tod-victim.sol":529:579  msg.sender.transfer(msg.value - _quantity * price) */
+      swap1
+      dup2
+      iszero
+      mul
+      swap1
+      mload(0x40)
+      0x00
+      mload(0x40)
+      dup1
+      dup4
+      sub
+      dup2
+      dup6
+      dup9
+      dup9
+      call
+      swap4
+      pop
+      pop
+      pop
+      pop
+      iszero
+        /* "--CODEGEN--":8:17   */
+      dup1
+        /* "--CODEGEN--":5:7   */
+      iszero
+      tag_28
+      jumpi
+        /* "--CODEGEN--":45:61   */
+      returndatasize
+        /* "--CODEGEN--":42:43   */
+      0x00
+        /* "--CODEGEN--":39:40   */
+      dup1
+        /* "--CODEGEN--":24:62   */
+      returndatacopy
+        /* "--CODEGEN--":77:93   */
+      returndatasize
+        /* "--CODEGEN--":74:75   */
+      0x00
+        /* "--CODEGEN--":67:94   */
+      revert
+        /* "--CODEGEN--":5:7   */
+    tag_28:
+        /* "./myresearch/tod-victim.sol":529:579  msg.sender.transfer(msg.value - _quantity * price) */
+      pop
+        /* "./myresearch/tod-victim.sol":356:586  function buy(uint _quantity) public payable {... */
+      pop
+      jump	// out
+
+    auxdata: 0xa2646970667358221220cbdb13edb29e7e52a7be22a2f0a83625203c4ee6b081c8f83ceb21e58b1978bd64736f6c63430006030033
+}

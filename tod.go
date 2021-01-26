@@ -30,8 +30,8 @@ var JUMP byte = 86
 var SELFDESTRUCT byte = 255
 
 var contract_address = "0x0000000000000000000000000000000000000000"
-var func_address, _ = hex.DecodeString("0xd96a094a"[2:])
-var func_address2, _ = hex.DecodeString("0x8d6cc56d"[2:])
+var func_address, _ = hex.DecodeString("0xd96a094a"[2:])//buy
+var func_address2, _ = hex.DecodeString("0x8d6cc56d"[2:])//updatePrice
 
 var mem runtime.MemStats
 
