@@ -15,7 +15,7 @@ var mem runtime.MemStats
 
 func PrintMemory() (float64) {
 	runtime.ReadMemStats(&mem)
-	return float64(mem.TotalAlloc)/float64(1048576)
+	return float64(mem.TotalAlloc) / float64(1048576)
 }
 
 var STOP byte = 0
@@ -47,67 +47,67 @@ func main() {
 	all := 0
 	solidity := 0
 	attack := 0
-	time_all := 0.0
-	mem_all := 0.0
-	time_max := 0.0
-	mem_max := 0.0
+	timeAll := 0.0
+	memAll := 0.0
+	timeMax := 0.0
+	memMax := 0.0
 	for i := 0; i < 10; i++ {
 		dn := strconv.Itoa(i)
 		dir := "../../data/contracts/" + dn
 		files, _ := ioutil.ReadDir(dir)
 		fmt.Println(len(files))
-        all += len(files)
-        attack_dir := 0
+		all += len(files)
+		attackDir := 0
 		for _, file := range files {
 			data, _ := ioutil.ReadFile(dir + "/" + file.Name())
 			startMem := PrintMemory()
 			start := time.Now()
-			if CheckSol(string(data)) {
-				solidity += 1
-				split := returnsplit(string(data), file.Name())
-				contain, funs := split_contains(split, string(data), file.Name())
-				if contain && split_same(string(data), funs, split) {
+			if isSolidity(string(data)) {
+				solidity++
+				fallbackCode := fallbackCode(string(data), file.Name())
+				called, funs := calledFunction(split, string(data), file.Name())
+				if called && ducpicatedCalledFunction(string(data), funs, fallbackCode) {
 					fmt.Println(file.Name())
-                    attack += 1
-                    attack_dir += 1
+					attack++
+					attackDir++
 					f, _ := os.OpenFile("result.txt", os.O_APPEND|os.O_WRONLY, 0600)
 					defer f.Close()
 					fmt.Fprintln(f, file.Name())
-					stopMem_attack := PrintMemory()
-					stop_attack := time.Now()
-					mem_max += stopMem_attack-startMem
-					time_max += stop_attack.Sub(start).Seconds()
+					stopMemAttack := PrintMemory()
+					stopAttack := time.Now()
+					memMax += stopMemAttack - startMem
+					timeMax += stopAttack.Sub(start).Seconds()
 				}
 			}
 			stopMem := PrintMemory()
 			stop := time.Now()
-			mem_all += stopMem-startMem
-			time_all += stop.Sub(start).Seconds()
+			memAll += stopMem - startMem
+			timeAll += stop.Sub(start).Seconds()
 		}
 		f, _ := os.OpenFile("result.txt", os.O_APPEND|os.O_WRONLY, 0600)
 		defer f.Close()
         fmt.Fprintln(f, "\n")
         fmt.Print("attack: ")
-        fmt.Println(attack_dir)
+        fmt.Println(attackDir)
 	}
 	fmt.Println(all)
 	fmt.Println(solidity)
 	fmt.Println(attack)
-	fmt.Println(time_max/float64(attack))
-	fmt.Println(mem_max/float64(attack))
-	fmt.Println(time_all/float64(all))
-	fmt.Println(mem_all/float64(all))
+	fmt.Println(timeMax / float64(attack))
+	fmt.Println(memMax / float64(attack))
+	fmt.Println(timeAll / float64(all))
+	fmt.Println(memAll / float64(all))
 }
 
-func split_same(bytes string, funs [][]byte, split []code) bool {
+func ducpicatedCalledFunction(bytes string, funs [][]byte, fallbackCode []code) bool {
 	hex1, _ := hex.DecodeString(bytes[2:])
 	count := make([]int, len(funs))
 	count1 := make([]int, len(funs))
 	ignore := -1
 	for i, v := range hex1 {
-		if v == 99 && i < len(hex1)-5 { //push4
+		if v == PUSH4 && i < len(hex1) - 5 {
 			for j, w := range funs {
-				if reflect.DeepEqual(hex1[i+1:i+5], w) && hex1[i+5] != 20 && hex1[i+6] != 20 { //eq
+				if reflect.DeepEqual(hex1[i+1:i+5], w) && hex1[i+5] != EQ && hex1[i+6] != EQ {
 					count[j] = count[j] + 1
 				}
 			}
@@ -115,8 +115,8 @@ func split_same(bytes string, funs [][]byte, split []code) bool {
 		Ignore(v, i, &ignore)
 	}
 	ignore = -1
-	for i, v := range split {
-		if v.Bytecode == 99 && v.Func == 1 && i < len(split)-4 {
+	for i, v := range fallbackCode {
+		if v.Bytecode == PUSH4 && v.Func == 1 && i < len(split)-4 {
 			for j, w := range funs {
 				if reflect.DeepEqual(hex1[i+1:i+5], w) {
 					count1[j] = count1[j] + 1
@@ -126,38 +126,30 @@ func split_same(bytes string, funs [][]byte, split []code) bool {
 		Ignore(v.Bytecode, i, &ignore)
 	}
 	for i, _ := range funs {
-		if count[i]-count1[i] >= 1 {
+		if count[i] - count1[i] >= 1 {
 			return true
 		}
 	}
 	return false
 }
-func split_contains(s []code, bytes string, file string) (bool, [][]byte) {
+func calledFunction(s []code, bytes string, file string) (bool, [][]byte) {
 	count := 0
 	ignore := -1
 	fun := []byte{}
 	funs := [][]byte{}
-    //transfer := [][]byte{{169, 5, 156, 187}, {255, 255, 255, 255}, {210, 90, 153, 44}, {111, 227, 202, 186}, {224, 166, 159, 13}, {167, 89, 195, 162}}
-    //transfer := [][]byte{{255, 255, 255, 255}, {210, 90, 153, 44}, {111, 227, 202, 186}, {224, 166, 159, 13}, {167, 89, 195, 162}}
-    transfer := [][]byte{{169, 5, 156, 187}, {255, 255, 255, 255}}
-    //0xa9059cbb: trasfer
-    //0xd25a992c ? *
-    //0x6fe3caba ? *
-    //0xe0a69f0d 0x
-	//transfer = append(transfer, hex1[i+1:i+5])
-	//transfer := [][]byte{}
+	transfer := [][]byte{{169, 5, 156, 187}, {255, 255, 255, 255}}
 	hex1, _ := hex.DecodeString(bytes[2:])
 	for i, v := range s {
-		if i > ignore && i < len(s)-2 && v.Func == 1 {
-			if v.Bytecode == 99 && i < len(s)-5 { //push4 20も
-				kaburi := false
+		if i > ignore && i < len(s) - 2 && v.Func == 1 {
+			if v.Bytecode == PUSH4 && i < len(s) - 5 {
+				duplicate := false
 				for _, w := range transfer {
 					if reflect.DeepEqual(hex1[i+1:i+5], w) {
-						kaburi = true
+						duplicate = true
 					}
 				}
-				if !kaburi {
-					fun = hex1[i+1 : i+5]
+				if !duplicate {
+					fun = hex1[i+1:i+5]
 				}
 			}
 			if v.Bytecode == 241 || v.Bytecode == 242 || v.Bytecode == 250 {
@@ -178,7 +170,7 @@ func split_contains(s []code, bytes string, file string) (bool, [][]byte) {
 }
 
 
-func CheckSol(tx string) bool {
+func isSolidity(tx string) bool {
 	if len(tx) <= 10 {
 		return false
 	} else if tx[2:4] == "60" {
@@ -188,12 +180,12 @@ func CheckSol(tx string) bool {
 }
 
 func Ignore(v byte, i int, ignore *int) {
-	if v >= 96 && v <= 127 && i > *ignore {
+	if v >= PUSH1 && v <= PUSH20 && i > *ignore {
 		*ignore = i + int(v) - 95
 	}
 }
 
-func returnsplit(bytes string, file string) []code {
+func fallbackCode(bytes string, file string) []code {
 	hex1, _ := hex.DecodeString(bytes[2:])
 	codes := []code{}
 	for i, v := range hex1 {
@@ -214,23 +206,23 @@ func returnsplit(bytes string, file string) []code {
 	for i, v := range hex1[:len(hex1)-3] {
 		if i > ignore && i > gtignore {
 			if !afterSub {
-				if (v == 0 && hex1[i+1] == 96) || (v == 243 && hex1[i+1] == 96) { //push1 ??
+				if (v == 0 && hex1[i+1] == PUSH1) || (v == RETURN && hex1[i+1] == PUSH1) {
 					afterSub = true
 					sub0 = i + 1
 				}
 			} else {
-				if v == 255 && hex1[i+1] == 96 { //suicide
+				if v == SELFDESTRUCT && hex1[i+1] == PUSH1 {
 					sub0 = i + 1
 				}
-				if first && v == 17 { //gt
-					gtignore = sub0 + int(hex1[i+2])*256 + int(hex1[i+3])
+				if first && v == GT {
+					gtignore = sub0 + int(hex1[i+2]) * 256 + int(hex1[i+3])
 				}
-				if v == 54 { //calldatasize
+				if v == CALLDATESIZE {
 					aftercalldatasize = true
 				}
-				if first && aftercalldatasize && v == 87 && hex1[i-3] == 97 { //jumpi
-					next := sub0 + int(hex1[i-2])*256 + int(hex1[i-1])
-					if next < len(hex1)-1 { //ここでかかるファイル注意
+				if first && aftercalldatasize && v == JUMPI && hex1[i-3] == PUSH2 {
+					next := sub0 + int(hex1[i-2]) * 256 + int(hex1[i-1])
+					if next < len(hex1) - 1 {
 						tags = append(tags, next)
 						tagi = tagi + 1
 						first = false
@@ -238,18 +230,18 @@ func returnsplit(bytes string, file string) []code {
 						break
 					}
 				}
-				if first && v == 91 {
+				if first && v == JUMPDEST {
 					break
 				}
-				if !first && i > tags[tagi] { //jumpi
-					if v == 87 {
-						next := sub0 + int(hex1[i-2])*256 + int(hex1[i-1])
-						if next > tags[1] && next < len(hex1)-1 {
+				if !first && i > tags[tagi] {
+					if v == JUMPI {
+						next := sub0 + int(hex1[i-2]) * 256 + int(hex1[i-1])
+						if next > tags[1] && next < len(hex1) - 1 {
 							tags = append(tags, next)
 							tagi = tagi + 1
 						}
 					}
-					if v == 91 { //jumpdest
+					if v == JUMPDEST {
 						break
 					}
 				}
@@ -262,11 +254,11 @@ func returnsplit(bytes string, file string) []code {
 			j := v + 1
 			for hex1[j] != JUMPDEST {
 				codes[j].Func = 1
-				if hex1[j] >= 96 && hex1[j] <= 127 {
-					for i := 0; i < int(hex1[j])-95 && j+i+1 < len(hex1); i++ {
+				if hex1[j] >= PUSH1 && hex1[j] <= PUSH20 {
+					for i := 0; i < int(hex1[j]) - 95 && j + i + 1 < len(hex1); i++ {
 						codes[j+i+1].Func = 1
 					}
-					if j+int(hex1[j])-94 >= len(hex1) {
+					if j+int(hex1[j]) - 94 >= len(hex1) {
 						j = len(hex1) - 1
 					} else {
 						j = j + int(hex1[j]) - 94

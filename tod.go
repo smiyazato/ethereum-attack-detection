@@ -68,18 +68,18 @@ func main(){
                     sub0 = i + 2
                 }
             } else if v == EQ && reflect.DeepEqual(hex1[i-4:i], func_address) && next == 0 {
-                next = sub0 + int(hex1[i+2])*256+int(hex1[i+3])
+                next = sub0 + int(hex1[i+2]) * 256 + int(hex1[i+3])
                 tags = append(tags, next)
                 tagi = tagi + 1
             } else if next != 0 && i > tags[tagi] + 1 {
                 if v == JUMPI {
-                    next = sub0 + int(hex1[i-2])*256 + int(hex1[i-1])
+                    next = sub0 + int(hex1[i-2]) * 256 + int(hex1[i-1])
                     if next > tags[1] && next < len(hex1)-1 {
                         tags = append(tags, next)
                         tagi = tagi + 1
                     }
                 } else if v == JUMP && hex1[i-3] == PUSH2 {
-                    next = sub0 + int(hex1[i-2])*256 + int(hex1[i-1])
+                    next = sub0 + int(hex1[i-2]) * 256 + int(hex1[i-1])
                     if next > tags[1] && next < len(hex1)-1 {
                         tags = append(tags, next)
                         tagi = tagi + 1
@@ -124,6 +124,6 @@ func main(){
     }
     stopMem := PrintMemory()
     stop := time.Now()
-    fmt.Println(stopMem-startMem)
+    fmt.Println(stopMem - startMem)
     fmt.Println(stop.Sub(start).Seconds())
 }
